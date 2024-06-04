@@ -8,7 +8,7 @@ class Node {
 
 class Tree {
   constructor(arr) {
-    this.array = arr;
+    this.array = arr.filter((item, index) => arr.indexOf(item) === index).sort((a, b) => a - b);
     this.root = this.buildTree(this.array);
   }  
 
@@ -26,7 +26,7 @@ class Tree {
     root.right = this.buildTree(array.slice(mid + 1, end)); // Pass node object
     
     return root;
-  } 
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -44,5 +44,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let test = new Tree(customArr);
-// console.log(test.root);
-prettyPrint(test.root)
+// console.log(test.array);
+prettyPrint(test.root);
