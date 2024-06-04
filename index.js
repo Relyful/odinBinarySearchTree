@@ -9,18 +9,40 @@ class Node {
 class Tree {
   constructor(arr) {
     this.array = arr;
-  }
-
-  root = null;
+    this.root = this.buildTree(this.array);
+  }  
 
   buildTree(array) {
-    if (start > end) {
+    if (array.length <= 0) {
       return null;
     }
 
+    let start = 0;
+    let end = array.length;
+    let mid = Math.floor((start + end) / 2);
+
+    const root = new Node(array[mid]);    
+    root.left = this.buildTree(array.slice(start, mid)); // Pass node objects
+    root.right = this.buildTree(array.slice(mid + 1, end)); // Pass node object
     
+    return root;
   } 
 }
 
-let a = new Node('Ahoj');
-console.log(a);
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
+
+const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let test = new Tree(customArr);
+// console.log(test.root);
+prettyPrint(test.root)
