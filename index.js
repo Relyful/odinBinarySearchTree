@@ -83,7 +83,18 @@ class Tree {
       currentNode.right === null ? currentNode.data = currentNode.left.data : currentNode.data = currentNode.right.data;
       currentNode.right = null;
       currentNode.left = null;
+      return true;
     }
+    //Find the inOrder succesor of current Node
+    let inOrderSuccessor = currentNode.right;
+    predecesorNode = currentNode;
+    while (inOrderSuccessor.left !== null) {
+      predecesorNode = inOrderSuccessor;
+      inOrderSuccessor = inOrderSuccessor.left;
+    }
+    currentNode.data = inOrderSuccessor.data;
+    predecesorNode.left = null;
+    return true;
   }
 }
 
@@ -103,7 +114,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(customArr);
 // console.log(test.array);
-test.insert(2);
-test.insert(96);
-test.deleteItem(324);
+// test.insert(2);
+// test.insert(96);
+test.deleteItem(4);
 prettyPrint(test.root);
