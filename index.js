@@ -8,7 +8,7 @@ class Node {
 
 class Tree {
   constructor(arr) {
-    // Filter duplicates and sort imput array 
+    // Filter duplicates and sort imput array
     this.array = arr
       .filter((item, index) => arr.indexOf(item) === index)
       .sort((a, b) => a - b);
@@ -34,16 +34,16 @@ class Tree {
   insert(value) {
     let currentNode = this.root;
     while (true) {
-      if (currentNode.data > value) {        
+      if (currentNode.data > value) {
         if (currentNode.left === null) {
           currentNode.left = new Node(value);
           return true;
         }
-        currentNode = currentNode.left
+        currentNode = currentNode.left;
       } else if (currentNode.data < value) {
-          if (currentNode.right === null) {
-            currentNode.right = new Node(value);
-            return true;
+        if (currentNode.right === null) {
+          currentNode.right = new Node(value);
+          return true;
         }
         currentNode = currentNode.right;
       } else if (currentNode === value) {
@@ -80,7 +80,9 @@ class Tree {
     }
     if (currentNode.right === null || currentNode.left === null) {
       // If right is null copy left to currentNode else copy right
-      currentNode.right === null ? currentNode.data = currentNode.left.data : currentNode.data = currentNode.right.data;
+      currentNode.right === null
+        ? (currentNode.data = currentNode.left.data)
+        : (currentNode.data = currentNode.right.data);
       currentNode.right = null;
       currentNode.left = null;
       return true;
@@ -109,6 +111,30 @@ class Tree {
     }
     return currentNode;
   }
+
+  levelOrderIterative(callback) {
+    const root = this.root;
+    const queue = [root];
+    const result = [];
+
+    while (queue.length > 0) {
+      const currentWorkingNode = queue.shift();
+      if (callback) {
+        callback(currentWorkingNode);
+      } else {
+        result.push(currentWorkingNode.data);
+      }      
+      if (currentWorkingNode.left !== null) {
+        queue.push(currentWorkingNode.left);
+      }
+      if (currentWorkingNode.right !== null) {
+        queue.push(currentWorkingNode.right);
+      }
+    }
+    if (!callback) {
+      return result;
+    }    
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -124,11 +150,17 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+function printCallback(node) {
+  console.log(node.data);
+};
+
 const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(customArr);
 // console.log(test.array);
 // test.insert(2);
 // test.insert(96);
 // test.deleteItem(5);
-console.log(test.find(4));
+// test.find(4);
+console.log(test.levelOrderIterative());
+test.levelOrderIterative(printCallback);
 prettyPrint(test.root);
