@@ -96,6 +96,19 @@ class Tree {
     predecesorNode.left = null;
     return true;
   }
+
+  find(value) {
+    let currentNode = this.root;
+
+    while (currentNode !== null && currentNode.data !== value) {
+      if (value > currentNode.data) {
+        currentNode = currentNode.right;
+      } else if (value < currentNode.data) {
+        currentNode = currentNode.left;
+      }
+    }
+    return currentNode;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -116,5 +129,6 @@ const test = new Tree(customArr);
 // console.log(test.array);
 // test.insert(2);
 // test.insert(96);
-test.deleteItem(4);
+// test.deleteItem(5);
+console.log(test.find(4));
 prettyPrint(test.root);
