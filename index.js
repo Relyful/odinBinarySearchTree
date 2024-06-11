@@ -233,21 +233,29 @@ class Tree {
     }
   };
 
-  isBalanced() {
-    function compareHeight(node) {
-      if (this.height(node.left) - this.height(node.right) > 1) {
-        return false;
-      } else {
-        return true;
-      };
-    };
-    this.levelOrderIterative(compareHeight);
-  }
+  isBalanced(node = this.root) {
+    if (!node) {
+      return;
+    }
+    let result;
+    if (Math.abs(this.height(node.left) - this.height(node.right)) > 1) {
+      result = false;
+    } else {
+      result = true;
+    }
+    const leftResult = this.isBalanced(node.left);
+    const rightResult = this.isBalanced(node.right);
+    if (result === false || leftResult === false || rightResult === false) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 };
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
-    return;
+    return 0;
   }
   if (node.right !== null) {
     prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
@@ -265,8 +273,13 @@ function printCallback(node) {
 const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const test = new Tree(customArr);
 // console.log(test.array);
-// test.insert(2);
+// test.insert(99);
+// test.insert(98);
+// test.insert(97);
 // test.insert(96);
+// test.insert(95);
+// test.insert(94);
+// test.insert(93);
 // test.deleteItem(5);
 // test.find(4);
 // test.levelOrderIterative();
@@ -279,6 +292,7 @@ const test = new Tree(customArr);
 // test.preOrder(this.root, printCallback);
 // console.log(test.postOrder());
 // test.postOrder(this.root, printCallback);
-// console.log(test.height(test.find(8)));
-console.log(test.depth(test.find(1)));
+// console.log(test.height(test.find(23)));
+// console.log(test.depth(test.find(1)));
+console.log(test.isBalanced());
 prettyPrint(test.root);
