@@ -219,6 +219,29 @@ class Tree {
     const rightHeight = this.height(node.right);
 
     return Math.max(leftHeight, rightHeight) + 1;
+  };
+
+  depth(node, root = this.root) {
+    if (node.data === root.data) {
+      return 0;
+    }
+    if (node.data < root.data) {
+      return this.depth(node, root.left) + 1;
+    }
+    if (node.data > root.data) {
+      return this.depth(node, root.right) + 1;
+    }
+  };
+
+  isBalanced() {
+    function compareHeight(node) {
+      if (this.height(node.left) - this.height(node.right) > 1) {
+        return false;
+      } else {
+        return true;
+      };
+    };
+    this.levelOrderIterative(compareHeight);
   }
 };
 
@@ -257,4 +280,5 @@ const test = new Tree(customArr);
 // console.log(test.postOrder());
 // test.postOrder(this.root, printCallback);
 // console.log(test.height(test.find(8)));
+console.log(test.depth(test.find(1)));
 prettyPrint(test.root);
