@@ -174,6 +174,25 @@ class Tree {
       return arr;
     }    
   }
+
+  preOrder(node = this.root, callback, arr = []) {
+    if (!node) {
+      return;
+    }
+
+    if (callback) {
+      callback(node);
+    } else {
+      arr.push(node.data);
+    };
+    this.preOrder(node.left, callback, arr);    
+    this.preOrder(node.right, callback, arr);
+    if (callback) {
+      return
+    } else {
+      return arr;
+    };
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -206,4 +225,6 @@ const test = new Tree(customArr);
 // test.levelOrderRecursive(printCallback);
 // console.log(test.inOrder(this.root, printCallback));
 // test.inOrder(this.root, printCallback);
+// console.log(test.preOrder());
+test.preOrder(this.root, printCallback);
 prettyPrint(test.root);
