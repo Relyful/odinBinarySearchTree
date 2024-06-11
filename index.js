@@ -193,6 +193,22 @@ class Tree {
       return arr;
     };
   }
+
+  postOrder(node = this.root, callback, arr = []) {
+    if (!node) {
+      return;
+    }
+
+    this.postOrder(node.left, callback, arr);
+    this.postOrder(node.right, callback, arr);
+    if (callback) {
+      callback(node);
+      return;
+    } else {
+      arr.push(node.data);
+      return arr;
+    };
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -226,5 +242,7 @@ const test = new Tree(customArr);
 // console.log(test.inOrder(this.root, printCallback));
 // test.inOrder(this.root, printCallback);
 // console.log(test.preOrder());
-test.preOrder(this.root, printCallback);
+// test.preOrder(this.root, printCallback);
+// console.log(test.postOrder());
+// test.postOrder(this.root, printCallback);
 prettyPrint(test.root);
