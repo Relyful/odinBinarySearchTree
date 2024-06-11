@@ -3,8 +3,8 @@ class Node {
     this.data = data;
     this.left = null;
     this.right = null;
-  }
-}
+  };
+};
 
 class Tree {
   constructor(arr) {
@@ -13,7 +13,7 @@ class Tree {
       .filter((item, index) => arr.indexOf(item) === index)
       .sort((a, b) => a - b);
     this.root = this.buildTree(this.array);
-  }
+  };
 
   buildTree(array) {
     if (array.length <= 0) {
@@ -29,7 +29,7 @@ class Tree {
     root.right = this.buildTree(array.slice(mid + 1, end)); // Pass node object
 
     return root;
-  }
+  };
 
   insert(value) {
     let currentNode = this.root;
@@ -50,7 +50,7 @@ class Tree {
         return false;
       }
     }
-  }
+  };
 
   deleteItem(value) {
     let currentNode = this.root;
@@ -97,7 +97,7 @@ class Tree {
     currentNode.data = inOrderSuccessor.data;
     predecesorNode.left = null;
     return true;
-  }
+  };
 
   find(value) {
     let currentNode = this.root;
@@ -110,7 +110,7 @@ class Tree {
       }
     }
     return currentNode;
-  }
+  };
 
   levelOrderIterative(callback) {
     const root = this.root;
@@ -134,7 +134,7 @@ class Tree {
     if (!callback) {
       return result;
     }    
-  }
+  };
 
   levelOrderRecursive(callback) {
     const result = [];
@@ -154,7 +154,7 @@ class Tree {
     }
     workNode(queue.shift());
     return result;
-  }
+  };
 
   inOrder(node = this.root, callback, arr = []) {
     if (!node) {
@@ -173,7 +173,7 @@ class Tree {
     } else {
       return arr;
     }    
-  }
+  };
 
   preOrder(node = this.root, callback, arr = []) {
     if (!node) {
@@ -192,7 +192,7 @@ class Tree {
     } else {
       return arr;
     };
-  }
+  };
 
   postOrder(node = this.root, callback, arr = []) {
     if (!node) {
@@ -208,8 +208,19 @@ class Tree {
       arr.push(node.data);
       return arr;
     };
+  };
+
+  height(node) {
+    if (!node) {
+      return 0;
+    }
+
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
   }
-}
+};
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -245,4 +256,5 @@ const test = new Tree(customArr);
 // test.preOrder(this.root, printCallback);
 // console.log(test.postOrder());
 // test.postOrder(this.root, printCallback);
+// console.log(test.height(test.find(8)));
 prettyPrint(test.root);
