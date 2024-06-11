@@ -155,6 +155,25 @@ class Tree {
     workNode(queue.shift());
     return result;
   }
+
+  inOrder(node = this.root, callback, arr = []) {
+    if (!node) {
+      return null;
+    }
+
+    this.inOrder(node.left, callback, arr);
+    if (callback) {
+      callback(node);
+    } else {
+      arr.push(node.data);
+    };    
+    this.inOrder(node.right, callback, arr);
+    if (callback) {
+      return
+    } else {
+      return arr;
+    }    
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -181,8 +200,10 @@ const test = new Tree(customArr);
 // test.insert(96);
 // test.deleteItem(5);
 // test.find(4);
-// console.log(test.levelOrderIterative());
+// test.levelOrderIterative();
 // test.levelOrderIterative(printCallback);
-console.log(test.levelOrderRecursive());
-test.levelOrderRecursive(printCallback)
+// test.levelOrderRecursive();
+// test.levelOrderRecursive(printCallback);
+// console.log(test.inOrder(this.root, printCallback));
+// test.inOrder(this.root, printCallback);
 prettyPrint(test.root);
