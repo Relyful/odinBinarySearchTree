@@ -278,32 +278,22 @@ function printCallback(node) {
   console.log(node.data);
 };
 
-const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const customArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 76, 97];
 const test = new Tree(customArr);
-// console.log(test.array);
-// test.insert(99);
-// test.insert(98);
-// test.insert(97);
-// test.insert(96);
-// test.insert(95);
-test.insert(94);
-test.insert(93);
-// test.deleteItem(5);
-// test.find(4);
-// test.levelOrderIterative();
-// test.levelOrderIterative(printCallback);
-// test.levelOrderRecursive();
-// test.levelOrderRecursive(printCallback);
-// console.log(test.inOrder(this.root, printCallback));
-// test.inOrder(this.root, printCallback);
-// console.log(test.preOrder());
-// test.preOrder(this.root, printCallback);
-// console.log(test.postOrder());
-// test.postOrder(this.root, printCallback);
-// console.log(test.height(test.find(23)));
-// console.log(test.depth(test.find(1)));
-prettyPrint(test.root);
+
+console.log(test.isBalanced());
+console.log(test.levelOrderRecursive());
+console.log(test.preOrder());
+console.log(test.inOrder())
+console.log(test.postOrder());;
+test.insert(169);
+test.insert(189);
+test.insert(1337);
+test.insert(240);
 console.log(test.isBalanced());
 test.rebalance();
 console.log(test.isBalanced());
-prettyPrint(test.root);
+console.log(test.levelOrderRecursive());
+console.log(test.preOrder());
+console.log(test.inOrder())
+console.log(test.postOrder());;
